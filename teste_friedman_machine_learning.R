@@ -1,6 +1,6 @@
 library(tidyverse)
 
-df <- read.csv('friedman_data.csv')
+df <- read.csv('friedman_data_FCLF.csv')
 
 d_MAE <- df %>%
   select(knn_MAE, xgb_MAE, ARIMA_MAE, RF_MAE, Lasso_MAE) %>%
@@ -12,8 +12,8 @@ d_MAE <- df %>%
 view(d_MAE)
 
 library(ggstatsplot)
+library(see)
 
-png("plot_MAE_friedman.png", width=1080, height=720)
 ggwithinstats(
   data=d_MAE,
   x = Modelo,
@@ -21,11 +21,10 @@ ggwithinstats(
   type='nonparametric',
   p.adjust.method = 'bonferroni',
 )
-dev.off()
 
 library(effectsize)
 
-interpret_kendalls_w(0.44) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
+interpret_kendalls_w(0.52) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
 ?interpret_kendalls_w()
 
 
@@ -36,7 +35,7 @@ d_train_RMSE <- df %>%
   group_by(Modelo) %>%
   ungroup()  
 
-png("plot_RMSE_train_friedman.png", width=1080, height=720)
+
 ggwithinstats(
   data=d_train_RMSE,
   x = Modelo,
@@ -44,8 +43,8 @@ ggwithinstats(
   type='nonparametric',
   p.adjust.method = 'bonferroni'
 )
-dev.off()
 
-interpret_kendalls_w(0.69) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+
+interpret_kendalls_w(0.70) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
