@@ -48,3 +48,28 @@ ggwithinstats(
 interpret_kendalls_w(0.70) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
+
+#teste com a rmse geral por empresa
+
+d_rmse_final <- read.csv("rmse_final_FCLF.csv")
+
+d_RMSE <- d_rmse_final %>%
+  select(RMSE_knn, RMSE_xgb, RMSE_ARIMA, RMSE_RF, RMSE_Lasso) %>%
+  rowid_to_column() %>%
+  gather(key = "Modelo", value = "RMSE", RMSE_knn:RMSE_Lasso) %>%
+  group_by(Modelo) %>%
+  ungroup()  
+
+view(d_RMSE)
+
+ggwithinstats(
+  data=d_RMSE,
+  x = Modelo,
+  y = RMSE,
+  type='nonparametric',
+  p.adjust.method = 'bonferroni',
+)
+
+interpret_kendalls_w(0.57) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+
+?interpret_kendalls_w()
