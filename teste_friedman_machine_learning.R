@@ -24,7 +24,7 @@ ggwithinstats(
 
 library(effectsize)
 
-interpret_kendalls_w(0.52) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
+interpret_kendalls_w(0.39) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
 ?interpret_kendalls_w()
 
 
@@ -45,7 +45,7 @@ ggwithinstats(
 )
 
 
-interpret_kendalls_w(0.70) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+interpret_kendalls_w(0.85) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
 
@@ -70,6 +70,6 @@ ggwithinstats(
   p.adjust.method = 'bonferroni',
 )
 
-interpret_kendalls_w(0.57) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+interpret_kendalls_w(0.42) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
