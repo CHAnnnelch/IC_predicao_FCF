@@ -24,7 +24,7 @@ ggwithinstats(
 
 library(effectsize)
 
-interpret_kendalls_w(0.39) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
+interpret_kendalls_w(0.37) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são moderadas
 ?interpret_kendalls_w()
 
 
@@ -45,7 +45,7 @@ ggwithinstats(
 )
 
 
-interpret_kendalls_w(0.85) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+interpret_kendalls_w(0.79) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
 
@@ -70,6 +70,29 @@ ggwithinstats(
   p.adjust.method = 'bonferroni',
 )
 
-interpret_kendalls_w(0.42) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+interpret_kendalls_w(0.39) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
+
+?interpret_kendalls_w()
+
+d_rmse_final_FCLA <- read.csv("rmse_final_FCLA.csv")
+
+d_RMSE_FCLA <- d_rmse_final_FCLA %>%
+  select(RMSE_knn, RMSE_xgb, RMSE_ARIMA, RMSE_RF, RMSE_Lasso) %>%
+  rowid_to_column() %>%
+  gather(key = "Modelo", value = "RMSE", RMSE_knn:RMSE_Lasso) %>%
+  group_by(Modelo) %>%
+  ungroup()  
+
+view(d_RMSE_FCLA)
+
+ggwithinstats(
+  data=d_RMSE_FCLA,
+  x = Modelo,
+  y = RMSE,
+  type='nonparametric',
+  p.adjust.method = 'bonferroni',
+)
+
+interpret_kendalls_w(0.36) #mostra que existem diferenças significativas no valor dos RMSEs de treino dos modelos e essas diferenças são substanciais
 
 ?interpret_kendalls_w()
